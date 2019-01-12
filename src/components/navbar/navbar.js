@@ -1,4 +1,5 @@
 import React from 'react';
+// NavLink is native to react dom and we're renamming it as RRNavLink
 import { NavLink as RRNavLink } from 'react-router-dom';
 import {
   Collapse,
