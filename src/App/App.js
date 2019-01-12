@@ -13,6 +13,7 @@ import Friends from '../components/pages/Friends/Friends';
 import Messages from '../components/pages/Messages/Messages';
 import Weather from '../components/pages/Weather/Weather';
 import Navbar from '../components/navbar/navbar';
+import weatherRequests from '../helpers/data/weatherRequests';
 import authRequests from '../helpers/data/authRequests';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
@@ -35,12 +36,25 @@ class App extends React.Component {
   state = {
     authed: false,
     pendingUser: true,
+    weather: [],
   }
+
+  gettingWeather = (uid) => {
+    weatherRequests.getWeather(uid).then((results) => {
+      this.setState({ weather: results });
+    })
+      .catch(err => console.error('error getting the weather', err))
+  };
+  
+
 
   componentDidMount() {
     connection();
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        const uid = authRequests.getCurrentUid;
+        // const currentUserName = sessionStorage.getItem('gitHubUserName');
+        gettingWeather(uid);
         this.setState({
           authed: true,
           pendingUser: false,
@@ -86,7 +100,8 @@ class App extends React.Component {
                     <PrivateRoute path='/events' component={Events} authed={this.state.authed} />
                     <PrivateRoute path='/friends' component={Friends} authed={this.state.authed} />
                     <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />
-                    <PrivateRoute path='/weather' component={Weather} authed={this.state.authed} />
+                    // {/* <PrivateRoute path='/weather' component={Weather} authed={this.state.authed} /> */}
+                    <PrivateRoute path='/weather' component={() => <Weather weather={weather} />} authed={this.state.authed} />
                     <PrivateRoute path='/home' component={Home} authed={this.state.authed} />
                     <PublicRoute path='/auth' component={Auth} authed={this.state.authed} />
                 </Switch>
