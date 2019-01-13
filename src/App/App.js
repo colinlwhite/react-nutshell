@@ -35,22 +35,23 @@ class App extends React.Component {
   state = {
     authed: false,
     pendingUser: true,
+    uid: '',
   }
 
   componentDidMount() {
     connection();
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        // const currentUserName = sessionStorage.getItem('gitHubUserName');
         this.setState({
           authed: true,
           pendingUser: false,
-
+          uid: user.uid,
         });
       } else {
         this.setState({
           authed: false,
           pendingUser: false,
+          uid: '',
         });
       }
     });
@@ -60,15 +61,14 @@ class App extends React.Component {
     this.removeListener();
   }
 
-  //  isAuthenticated = () => {
-  //    this.setState({ authed: true });
-  //  }
-
   render() {
-    const { authed, pendingUser, weather } = this.state;
+    const { authed, pendingUser, uid } = this.state;
     const logoutClickEvent = () => {
       authRequests.logoutUser();
-      this.setState({ authed: false });
+      this.setState({
+        authed: false,
+        uid: '',
+      });
     };
 
     if (pendingUser) {
@@ -87,7 +87,7 @@ class App extends React.Component {
                     <PrivateRoute path='/events' component={Events} authed={this.state.authed} />
                     <PrivateRoute path='/friends' component={Friends} authed={this.state.authed} />
                     <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />
-                    <PrivateRoute path='/weather' component={Weather} authed={this.state.authed} />
+                    <PrivateRoute path='/weather' component={() => <Weather uid={uid} />} authed={this.state.authed} />
                     <PrivateRoute path='/home' component={Home} authed={this.state.authed} />
                     <PublicRoute path='/auth' component={Auth} authed={this.state.authed} />
                 </Switch>

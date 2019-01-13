@@ -1,6 +1,6 @@
 import React from 'react';
+import WeatherItem from '../WeatherItem/WeatherItem';
 import weatherRequests from '../../../helpers/data/weatherRequests';
-import authRequests from '../../../helpers/data/authRequests';
 import './Weather.scss';
 
 class Weather extends React.Component {
@@ -8,22 +8,28 @@ class Weather extends React.Component {
     weather: [],
   }
 
-  gettingWeather = (uid) => {
-    weatherRequests.getWeather(uid).then((results) => {
-      console.log(results.data);
-      this.setState({ weather: results.data });
-    })
-      .catch(err => console.error('error getting the weather', err));
-  };
+  componentDidMount() {
+    weatherRequests.getWeather(this.props.uid)
+      .then((weather) => {
+        this.setState({ weather });
+      })
+      .catch(err => console.error('error with getting the weather', err));
+  }
 
   render() {
     const { weather } = this.state;
-    const uid = authRequests.getCurrentUid();
-    // gettingWeather();
+
+    const weatherListings = weather.map(weatherItem => (
+      <WeatherItem
+        weather={weatherItem}
+        key={weatherItem.id}
+      />
+    ));
+
     return (
       <div>
-        <h2>is it at least back connecting with no erros?</h2>
-        <h2>{weather.city_name}</h2>
+        <h1>The Weather</h1>
+        <h2>{weatherListings}</h2>
       </div>
     );
   }
