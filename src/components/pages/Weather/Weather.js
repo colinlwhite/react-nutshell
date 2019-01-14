@@ -2,7 +2,7 @@ import React from 'react';
 import WeatherItem from '../WeatherItem/WeatherItem';
 import weatherRequests from '../../../helpers/data/weatherRequests';
 import weatherbitRequests from '../../../helpers/data/weatherbitRequests';
-import currentLocalWeather from '../currentLocalWeather/currentLocalWeather';
+import CurrentLocalWeather from '../CurrentLocalWeather/CurrentLocalWeather';
 import './Weather.scss';
 
 class Weather extends React.Component {
@@ -69,7 +69,7 @@ class Weather extends React.Component {
       <div>
         <h1>The Weather</h1>
         <h2>{weatherListings}</h2>
-        <currentLocalWeather
+        <CurrentLocalWeather
         key={currentWeather.id}
         apiData={apiData}
         apiWeather={apiWeather}
