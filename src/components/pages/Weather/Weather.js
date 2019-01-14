@@ -25,8 +25,38 @@ class Weather extends React.Component {
       .catch(err => console.error('error with getting the weather', err));
   }
 
+  // SETTING STATE FOR API DATA AND API WEATHER
+  getWeatherAPI = (theCity, theState) => {
+    weatherbitRequests.getForecast(theCity, theState)
+      .then((theWeatherData) => {
+        this.setState({
+          apiData: theWeatherData,
+          apiWeather: theWeatherData.weather,
+        });
+      })
+      .catch(err => console.error('error with getting the weather from API', err));
+  }
+
+  getIsCurrent = (uid) => {
+    weatherRequests.getIsCurrent(uid)
+      .then((currentLocal) => {
+      // if isCurrent is true
+        if (currentLocal.isCurrent) {
+        // give function above that information
+          this.getWeatherAPI(currentLocal.city, currentLocal.state);
+          this.setState({ currentWeather: currentLocal });
+        }
+      });
+  }
+
+
   render() {
-    const { weather } = this.state;
+    const {
+      weather,
+      apiData,
+      apiWeather,
+      currentWeather,
+    } = this.state;
 
     const weatherListings = weather.map(weatherItem => (
       <WeatherItem
@@ -39,6 +69,12 @@ class Weather extends React.Component {
       <div>
         <h1>The Weather</h1>
         <h2>{weatherListings}</h2>
+        <currentLocalWeather
+        key={currentWeather.id}
+        apiData={apiData}
+        apiWeather={apiWeather}
+        currentWeather={currentWeather}
+      />
       </div>
     );
   }
