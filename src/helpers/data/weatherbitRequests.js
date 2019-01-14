@@ -9,6 +9,7 @@ const getForecast = (city, state) => new Promise((resolve, reject) => {
         resolve('noData');
       } else {
         resolve(result.data.data[0]);
+        console.log(result.data.data[0]);
       }
     })
     .catch((error) => {

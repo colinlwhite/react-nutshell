@@ -1,11 +1,15 @@
 import React from 'react';
 import WeatherItem from '../WeatherItem/WeatherItem';
 import weatherRequests from '../../../helpers/data/weatherRequests';
+import weatherbitRequests from '../../../helpers/data/weatherbitRequests';
 import './Weather.scss';
 
 class Weather extends React.Component {
   state = {
+    // firebase data array
     weather: [],
+    // main object from the weather API
+    apiObject: {},
   }
 
   componentDidMount() {
