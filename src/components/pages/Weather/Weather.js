@@ -23,7 +23,19 @@ class Weather extends React.Component {
         this.setState({ weather });
       })
       .catch(err => console.error('error with getting the weather', err));
+
+    weatherRequests.getIsCurrent(this.props.uid)
+      .then((currentLocal) => {
+      // if isCurrent is true
+        if (currentLocal.isCurrent === true) {
+        // give function above that information
+          this.getWeatherAPI(currentLocal.city, currentLocal.state);
+          this.setState({ currentWeather: currentLocal });
+        }
+      })
+      .catch(err => console.error('error', err));
   }
+
 
   // SETTING STATE FOR API DATA AND API WEATHER
   getWeatherAPI = (theCity, theState) => {
@@ -36,19 +48,6 @@ class Weather extends React.Component {
       })
       .catch(err => console.error('error with getting the weather from API', err));
   }
-
-  getIsCurrent = (uid) => {
-    weatherRequests.getIsCurrent(uid)
-      .then((currentLocal) => {
-      // if isCurrent is true
-        if (currentLocal.isCurrent) {
-        // give function above that information
-          this.getWeatherAPI(currentLocal.city, currentLocal.state);
-          this.setState({ currentWeather: currentLocal });
-        }
-      });
-  }
-
 
   render() {
     const {
