@@ -78,18 +78,18 @@ class App extends React.Component {
       <div className="App">
         <BrowserRouter>
           <React.Fragment>
-            <Navbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent} />
+            <Navbar isAuthed={authed} logoutClickEvent={logoutClickEvent} />
             <div className='container'>
               <div className='row'>
                 <Switch>
-                    <PrivateRoute path='/' exact component={Home} authed={this.state.authed} />
-                    <PrivateRoute path='/articles' component={Articles} authed={this.state.authed} />
-                    <PrivateRoute path='/events' component={Events} authed={this.state.authed} />
-                    <PrivateRoute path='/friends' component={Friends} authed={this.state.authed} />
-                    <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />
-                    <PrivateRoute path='/weather' component={() => <Weather uid={uid} />} authed={this.state.authed} />
-                    <PrivateRoute path='/home' component={Home} authed={this.state.authed} />
-                    <PublicRoute path='/auth' component={Auth} authed={this.state.authed} />
+                    <PrivateRoute path='/' exact component={Home} authed={authed} />
+                    <PrivateRoute path='/articles' component={Articles} authed={authed} />
+                    <PrivateRoute path='/events' component={Events} authed={authed} />
+                    <PrivateRoute path='/friends' component={Friends} authed={authed} />
+                    <PrivateRoute path='/messages' component={Messages} authed={authed} />
+                    <PrivateRoute path='/weather' component={() => <Weather uid={uid} />} authed={authed} />
+                    <PrivateRoute path='/home' component={Home} authed={authed} />
+                    <PublicRoute path='/auth' component={Auth} authed={authed} />
                 </Switch>
               </div>
               </div>
