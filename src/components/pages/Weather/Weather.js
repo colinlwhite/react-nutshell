@@ -2,14 +2,19 @@ import React from 'react';
 import WeatherItem from '../WeatherItem/WeatherItem';
 import weatherRequests from '../../../helpers/data/weatherRequests';
 import weatherbitRequests from '../../../helpers/data/weatherbitRequests';
+import currentLocalWeather from '../currentLocalWeather/currentLocalWeather';
 import './Weather.scss';
 
 class Weather extends React.Component {
   state = {
-    // firebase data array
+    // firebase json array
     weather: [],
     // main object from the weather API
-    apiObject: {},
+    apiData: {},
+    // 1 object within API DATA object - icon and description
+    apiWeather: {},
+    // to match firebase 'isCurrent: true' with API DATA
+    currentWeather: {},
   }
 
   componentDidMount() {
