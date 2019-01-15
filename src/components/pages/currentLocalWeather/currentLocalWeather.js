@@ -16,6 +16,7 @@ class CurrentLocalWeather extends React.Component {
   <div>
       <h1>{apiData.city_name}</h1>
       <h1>{apiData.state_code}</h1>
+      <h1>{apiData.temp}</h1>
       <h3>{apiWeather.description}</h3>
 </div>
     );
