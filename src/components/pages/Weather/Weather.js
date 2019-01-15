@@ -40,12 +40,12 @@ class Weather extends React.Component {
   // DELETE FUNCTION
   deleteItem = (weatherId) => {
     weatherRequests.deleteWeather(weatherId)
-    .then(() => {
-      weatherRequests.getWeather(this.props.uid)
-      .then((weather) => {
-        this.setState({ weather });
-      });
-    }).catch(err => console.error('error deleting', err));
+      .then(() => {
+        weatherRequests.getWeather(this.props.uid)
+          .then((weather) => {
+            this.setState({ weather });
+          });
+      }).catch(err => console.error('error deleting', err));
   }
 
   // POSTING NEW WEATHER LOCATION TO FIREBASE
