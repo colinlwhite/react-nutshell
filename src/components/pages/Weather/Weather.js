@@ -37,6 +37,17 @@ class Weather extends React.Component {
       .catch(err => console.error('error', err));
   }
 
+  // DELETE FUNCTION
+  deleteItem = (weatherId) => {
+    weatherRequests.deleteWeather(weatherId)
+    .then(() => {
+      weatherRequests.getWeather(this.props.uid)
+      .then((weather) => {
+        this.setState({ weather });
+      });
+    }).catch(err => console.error('error deleting', err));
+  }
+
   // POSTING NEW WEATHER LOCATION TO FIREBASE
   formSubmitEvent = (newWeather) => {
     weatherRequests.postRequest(newWeather).then(() => {
@@ -72,6 +83,7 @@ class Weather extends React.Component {
       <WeatherItem
         weather={weatherItem}
         key={weatherItem.id}
+        deleteEvent={this.deleteItem}
       />
     ));
 
