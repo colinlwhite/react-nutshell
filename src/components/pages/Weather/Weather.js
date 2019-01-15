@@ -3,6 +3,7 @@ import WeatherItem from '../WeatherItem/WeatherItem';
 import weatherRequests from '../../../helpers/data/weatherRequests';
 import weatherbitRequests from '../../../helpers/data/weatherbitRequests';
 import CurrentLocalWeather from '../CurrentLocalWeather/CurrentLocalWeather';
+import WeatherAdd from '../WeatherAdd/WeatherAdd';
 import './Weather.scss';
 
 class Weather extends React.Component {
@@ -36,6 +37,16 @@ class Weather extends React.Component {
       .catch(err => console.error('error', err));
   }
 
+  // POSTING NEW WEATHER LOCATION TO FIREBASE
+  formSubmitEvent = (newWeather) => {
+    weatherRequests.postRequest(newWeather).then(() => {
+      weatherRequests.getWeather(this.props.uid)
+        .then((weather) => {
+          this.setState({ weather });
+        });
+    })
+      .catch(err => console.error('error in data post', err));
+  }
 
   // SETTING STATE FOR API DATA AND API WEATHER
   getWeatherAPI = (theCity, theState) => {
@@ -73,6 +84,8 @@ class Weather extends React.Component {
         apiData={apiData}
         apiWeather={apiWeather}
         currentWeather={currentWeather}
+      />
+      <WeatherAdd onSubmit={this.formSubmitEvent}
       />
       </div>
     );
