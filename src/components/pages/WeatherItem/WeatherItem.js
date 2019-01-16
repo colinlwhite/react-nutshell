@@ -11,8 +11,8 @@ class WeatherItem extends React.Component {
   updateWeather = (e) => {
     e.preventDefault();
     const { updateFirebase, weather } = this.props;
-    updateFirebase(weather.id);
-    console.log(weather.id);
+    updateFirebase(weather.id, !weather.isCurrent);
+    console.log(weather.id, !weather.isCurrent);
   }
 
   render() {
