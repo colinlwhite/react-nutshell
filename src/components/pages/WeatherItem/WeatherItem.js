@@ -10,7 +10,9 @@ class WeatherItem extends React.Component {
 
   updateWeather = (e) => {
     e.preventDefault();
-    console.log('the button works');
+    const { updateFirebase, weather } = this.props;
+    updateFirebase(weather.id);
+    console.log(weather.id);
   }
 
   render() {
@@ -20,7 +22,7 @@ class WeatherItem extends React.Component {
         <li className="weather-items">
           <span>{weather.city}, </span>
           <span>{weather.state}</span>
-          <span><Button onClick={this.updateWeather} color="primary">MAKE CURRENT</Button></span>
+          <span><Button id={weather.id} onClick={this.updateWeather} color="primary">MAKE CURRENT</Button></span>
           <span><Button onClick={this.deleteWeather} color="danger">DELETE</Button></span>
         </li>
       </div>

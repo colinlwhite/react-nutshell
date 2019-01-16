@@ -38,6 +38,7 @@ const getIsCurrent = uid => new Promise((resolve, reject) => {
         });
       }
       // FINDING THE ISCURRENT TRUE BOOLEAN FROM THE ARRAY
+      // The find method returns the value of the first element in the array that satisfies the provided testing function
       const isCurrent = weatherArray.find(x => x.isCurrent);
       resolve(isCurrent);
     })
