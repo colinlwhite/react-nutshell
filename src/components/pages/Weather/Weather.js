@@ -51,11 +51,10 @@ class Weather extends React.Component {
 
   // UPDATE FIREBASE / FUNCTION
   updateItem = (weatherId, isCurrent) => {
-    // patchIsCurrent TAKES 2 PARAMETERS - WHICH ID AND THE BOOLEAN
+    // SET THE 1 WEATHER ITEM I CLICKED TO TRUE
     weatherRequests.patchIsCurrent(weatherId, isCurrent)
       .then(() => {
-        // NEED TO SET ALL WEATHER FIREBASE ARRAY TO FALSE
-        // SET THE 1 WEATHER ITEM I CLICKED TO TRUE
+        // FIND THE 1 THAT IS TRUE AND MAKE IT FALSE
         // GETTING FRESH DATA
         weatherRequests.getWeather(this.props.uid)
           .then((weather) => {

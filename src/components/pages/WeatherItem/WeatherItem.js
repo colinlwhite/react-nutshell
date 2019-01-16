@@ -1,5 +1,7 @@
 import React from 'react';
 import { Button } from 'reactstrap';
+import weatherRequests from '../../../helpers/data/weatherRequests';
+import authRequests from '../../../helpers/data/authRequests';
 
 class WeatherItem extends React.Component {
   deleteWeather = (e) => {
@@ -8,11 +10,21 @@ class WeatherItem extends React.Component {
     deleteEvent(weather.id);
   }
 
+  changeTrueToFalse = () => {
+    const uid = authRequests.getCurrentUid();
+    weatherRequests.getWeather(uid)
+      .then((weatherArray) => {
+        const findTrueWeather = weatherArray.filter(x => x.isCurrent === true);
+        console.log(findTrueWeather.id);
+      });
+  }
+
   updateWeather = (e) => {
     e.preventDefault();
     const { updateFirebase, weather } = this.props;
+    this.changeTrueToFalse();
     updateFirebase(weather.id, !weather.isCurrent);
-    console.log(weather.id, !weather.isCurrent);
+    // console.log(weather.id, !weather.isCurrent);
   }
 
   render() {
