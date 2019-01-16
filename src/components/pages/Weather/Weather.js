@@ -28,7 +28,7 @@ class Weather extends React.Component {
     weatherRequests.getIsCurrent(this.props.uid)
       .then((currentLocal) => {
       // if isCurrent is true
-        if (currentLocal.isCurrent === true) {
+        if (currentLocal) {
         // give function below that information
           this.getWeatherAPI(currentLocal.city, currentLocal.state);
           this.setState({ currentWeather: currentLocal });
