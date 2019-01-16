@@ -29,7 +29,7 @@ class Weather extends React.Component {
       .then((currentLocal) => {
       // if isCurrent is true
         if (currentLocal.isCurrent === true) {
-        // give function above that information
+        // give function below that information
           this.getWeatherAPI(currentLocal.city, currentLocal.state);
           this.setState({ currentWeather: currentLocal });
         }
