@@ -4,6 +4,7 @@ import apiKeys from '../apiKeys';
 
 const firebaseUrl = apiKeys.firebaseConfig.databaseURL;
 
+// GETTING AN ARRAY OF THE 2 CITY STATES FROM FIREBASE JSON DATA UNIQUE TO THE USER
 const getWeather = uid => new Promise((resolve, reject) => {
   axios.get(`${firebaseUrl}/weather.json?orderBy="uid"&equalTo="${uid}"`)
     .then((result) => {
@@ -24,6 +25,7 @@ const getWeather = uid => new Promise((resolve, reject) => {
 
 const deleteWeather = weatherId => axios.delete(`${firebaseUrl}/weather/${weatherId}.json`);
 
+// GETTING THE 1 OBJECT THAT HAS ISCURRENT TRUE
 const getIsCurrent = uid => new Promise((resolve, reject) => {
   axios.get(`${firebaseUrl}/weather.json?orderBy="uid"&equalTo="${uid}"`)
     .then((result) => {
@@ -35,6 +37,7 @@ const getIsCurrent = uid => new Promise((resolve, reject) => {
           weatherArray.push(weatherObject[weatherId]);
         });
       }
+      // FINDING THE ISCURRENT TRUE BOOLEAN FROM THE ARRAY
       const isCurrent = weatherArray.find(x => x.isCurrent);
       resolve(isCurrent);
     })
