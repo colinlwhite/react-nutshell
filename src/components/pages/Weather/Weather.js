@@ -25,12 +25,10 @@ class Weather extends React.Component {
       })
       .catch(err => console.error('error with getting the weather', err));
 
-    // Calling getIsCurrent returns 1 element
+    // RETURNING 1 FIREBASE ITEM THAT'S TRUE
     weatherRequests.getIsCurrent(this.props.uid)
       .then((currentLocal) => {
-      // if the 1 element is there?
         if (currentLocal) {
-        // pass its city and state values to
           this.getWeatherAPI(currentLocal.city, currentLocal.state);
           this.setState({ currentWeather: currentLocal });
         }
@@ -51,15 +49,17 @@ class Weather extends React.Component {
 
   // UPDATE FIREBASE / FUNCTION
   updateItem = (weatherId, isCurrent) => {
-    // SET THE 1 WEATHER ITEM I CLICKED TO TRUE
     weatherRequests.patchIsCurrent(weatherId, isCurrent)
       .then(() => {
-        // FIND THE 1 THAT IS TRUE AND MAKE IT FALSE
-        // GETTING FRESH DATA
         weatherRequests.getWeather(this.props.uid)
           .then((weather) => {
-            // SETTING STATE AGAIN
             this.setState({ weather });
+            // FIGURE IT OUT
+            const currentWeather = weather.filter(x => x.isCurrent === true);
+            const newTrueId = currentWeather[0];
+            // console.log(newTrueId.city);
+            this.getWeatherAPI(newTrueId.city, newTrueId.state);
+            this.setState({ currentWeather: newTrueId });
           });
       }).catch(err => console.error('error deleting', err));
   }

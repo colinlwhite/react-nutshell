@@ -11,11 +11,15 @@ class WeatherItem extends React.Component {
   }
 
   changeTrueToFalse = () => {
+    const { updateFirebase } = this.props;
     const uid = authRequests.getCurrentUid();
     weatherRequests.getWeather(uid)
       .then((weatherArray) => {
         const findTrueWeather = weatherArray.filter(x => x.isCurrent === true);
-        console.log(findTrueWeather.id);
+        const grabFirstIndexOfArray = findTrueWeather[0];
+        const setToFalse = false;
+        const falseId = grabFirstIndexOfArray.id;
+        updateFirebase(falseId, setToFalse);
       });
   }
 
@@ -24,7 +28,6 @@ class WeatherItem extends React.Component {
     const { updateFirebase, weather } = this.props;
     this.changeTrueToFalse();
     updateFirebase(weather.id, !weather.isCurrent);
-    // console.log(weather.id, !weather.isCurrent);
   }
 
   render() {
