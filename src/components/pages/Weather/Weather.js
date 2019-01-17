@@ -57,7 +57,6 @@ class Weather extends React.Component {
             // FIGURE IT OUT
             const currentWeather = weather.filter(x => x.isCurrent === true);
             const newTrueId = currentWeather[0];
-            // console.log(newTrueId.city);
             this.getWeatherAPI(newTrueId.city, newTrueId.state);
             this.setState({ currentWeather: newTrueId });
           });
